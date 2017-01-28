@@ -1,8 +1,9 @@
-package com.github.alexxand.servlets;
+package com.github.alexxand.controllers;
 
 import com.google.inject.Singleton;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,11 +11,11 @@ import java.io.IOException;
 import java.io.Writer;
 
 @Singleton
-public class EditPageController extends HttpServlet {
+public class ProfilePagesController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try (Writer out = resp.getWriter()) {
-            out.write(req.getServletPath());
-        }
+        Writer out = resp.getWriter();
+            out.write("profile");
+            resp.sendError(404);
     }
 }

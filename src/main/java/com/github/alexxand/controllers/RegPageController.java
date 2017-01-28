@@ -1,4 +1,4 @@
-package com.github.alexxand.servlets;
+package com.github.alexxand.controllers;
 
 import com.google.inject.Singleton;
 
@@ -10,11 +10,10 @@ import java.io.IOException;
 import java.io.Writer;
 
 @Singleton
-public class MailingPageController extends HttpServlet {
+public class RegPageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try (Writer out = resp.getWriter()) {
-            out.write(req.getServletPath());
-        }
+        Writer out = resp.getWriter();
+        out.write(req.getServletPath());
     }
 }

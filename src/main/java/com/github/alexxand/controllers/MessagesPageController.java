@@ -1,4 +1,4 @@
-package com.github.alexxand.servlets;
+package com.github.alexxand.controllers;
 
 import com.google.inject.Singleton;
 
@@ -13,8 +13,7 @@ import java.io.Writer;
 public class MessagesPageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try (Writer out = resp.getWriter()) {
+        Writer out = resp.getWriter();
             out.write(req.getServletPath());
-        }
     }
 }
