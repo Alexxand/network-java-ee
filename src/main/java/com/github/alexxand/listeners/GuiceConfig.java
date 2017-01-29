@@ -22,7 +22,10 @@ public class GuiceConfig extends GuiceServletContextListener{
             filter("/*").through(ToLoginFilter.class);
 
             serve("/login").with(LoginPageController.class);
-            serve("/reg").with(RegPageController.class);
+            serve("/reg","/reg/").with(RegPageController.class);
+            serve("/reg/confirm-email").with(RegPageController.class);
+            serve("/reg/add-position").with(RegPageController.class);
+            serve("/reg/add-photo").with(RegPageController.class);
             serve("/edit").with(EditPageController.class);
             serve("/settings").with(SettingsPageController.class);
             serve("/contacts").with(ContactsPageController.class);

@@ -14,6 +14,6 @@ public class MailingPageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Writer out = resp.getWriter();
-            out.write(req.getServletPath());
+        out.write(req.getServletPath());
     }
 }

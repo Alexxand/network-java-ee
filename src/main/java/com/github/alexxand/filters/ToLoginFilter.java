@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Arrays;
 
 @Singleton
 public class ToLoginFilter extends HttpFilter {
 
-    private boolean isGoodForRedirect(String path){
+    private static boolean isGoodForRedirect(String path){
         boolean isNotLogin = !path.equals("/login");
-        //[0] --> empty string
-        String root = path.split("/")[1];
-        boolean isNotWebjars = !root.equals("webjars");
-        return isNotLogin && isNotWebjars;
+        boolean isNotReg = !path.startsWith("/reg");
+        boolean isNotWebjars = !path.startsWith("/webjars");
+        return isNotLogin && isNotReg && isNotWebjars;
     }
 
     @Override

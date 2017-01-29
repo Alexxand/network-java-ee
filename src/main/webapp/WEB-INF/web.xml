@@ -14,7 +14,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
-    <servlet>
+    <!--<servlet>
         <servlet-name>HttpErrorHandler</servlet-name>
         <servlet-class>com.github.alexxand.errorHandlers.HttpErrorHandler</servlet-class>
     </servlet>
@@ -26,5 +26,5 @@
 
     <error-page>
         <location>/httpErrorHandler</location>
-    </error-page>
+    </error-page>-->
 </web-app>

@@ -6,25 +6,24 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="${contextPath}/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="${contextPath}/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${contextPath}/webjars/flag-icon-css/2.4.0/css/flag-icon.min.css"/>
     <style type="text/css">
-        .form-signin
-        {
+        .form-signin {
             max-width: 330px;
             padding: 15px;
             margin: 0 auto;
         }
-        .form-signin .form-signin-heading, .form-signin .checkbox
-        {
+
+        .form-signin .form-signin-heading, .form-signin .checkbox {
             margin-bottom: 10px;
         }
-        .form-signin .checkbox
-        {
+
+        .form-signin .checkbox {
             font-weight: normal;
         }
-        .form-signin .form-control
-        {
+
+        .form-signin .form-control {
             position: relative;
             font-size: 16px;
             height: auto;
@@ -33,24 +32,24 @@
             -moz-box-sizing: border-box;
             box-sizing: border-box;
         }
-        .form-signin .form-control:focus
-        {
+
+        .form-signin .form-control:focus {
             z-index: 2;
         }
-        .form-signin input[type="text"]
-        {
+
+        .form-signin input[type="text"] {
             margin-bottom: -1px;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
         }
-        .form-signin input[type="password"]
-        {
+
+        .form-signin input[type="password"] {
             margin-bottom: 10px;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
-        .account-wall
-        {
+
+        .account-wall {
             margin-top: 20px;
             padding: 40px 0px 20px 0px;
             background-color: #f7f7f7;
@@ -58,15 +57,15 @@
             -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
         }
-        .login-title
-        {
+
+        .login-title {
             color: #555;
             font-size: 18px;
             font-weight: 400;
             display: block;
         }
-        .profile-img
-        {
+
+        .profile-img {
             width: 96px;
             height: 96px;
             margin: 0 auto 10px;
@@ -75,32 +74,31 @@
             -webkit-border-radius: 50%;
             border-radius: 50%;
         }
-        .need-help
-        {
+
+        .need-help {
             margin-top: 10px;
         }
-        .new-account
-        {
+
+        .new-account {
             display: block;
             margin-top: 10px;
         }
     </style>
-    <title>Login</title>
+    <title>Registration</title>
 </head>
 <body>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title">Log in to continue</h1>
+            <h1 class="text-center login-title">Registration Form</h1>
             <div class="account-wall">
-                <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">
-                <form class="form-signin">
-                    <input type="text" class="form-control" placeholder="Email" required="" autofocus="" name="email">
-                    <input type="password" class="form-control" placeholder="Password" required="" name="password">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+                <form class="form-signin" action="${contextPath}/reg/add-photo" method="post">
+                    <input type="text" placeholder="Your organization" required="" class="form-control" autofocus="">
+                    <input type="text" placeholder="Your position" required="" class="form-control">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Continue</button>
                 </form>
             </div>
-            <a href="${contextPath}/reg" class="text-center new-account">Register</a>
         </div>
     </div>
 </div>

@@ -15,7 +15,7 @@ public class ProfilePagesController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Writer out = resp.getWriter();
-            out.write("profile");
-            resp.sendError(404);
+        out.write("profile");
+        resp.sendError(404);
     }
 }
