@@ -28,9 +28,6 @@ public class RegPageController extends HttpServlet {
             case "/":
                 req.getServletContext().getRequestDispatcher("/WEB-INF/reg/index.jsp").forward(req, resp);
                 break;
-            case "/confirm-email":
-                req.getServletContext().getRequestDispatcher("/WEB-INF/reg/confirm-email.jsp").forward(req, resp);
-                break;
             case "/add-position":
                 req.getServletContext().getRequestDispatcher("/WEB-INF/reg/add-position.jsp").forward(req, resp);
                 break;

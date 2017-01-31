@@ -21,7 +21,7 @@ public class HttpErrorHandler extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/errors/404.jsp").forward(req,resp);
         }
         if (statusCode == 500){
-            //throwable.printStackTrace();
+            //log exception with fatal before sending a request
             req.getRequestDispatcher("/WEB-INF/errors/500.jsp").forward(req,resp);
         }
     }

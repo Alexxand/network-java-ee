@@ -110,21 +110,6 @@
             width: 100%;
         }
     </style>
-
-    <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
-    <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        window.alert = function(){};
-        var defaultCSS = document.getElementById('bootstrap-css');
-        function changeCSS(css){
-            if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />');
-            else $('head > link').filter(':first').replaceWith(defaultCSS);
-        }
-        $( document ).ready(function() {
-            var iframe_height = parseInt($('html').height());
-            window.parent.postMessage( iframe_height, 'http://bootsnipp.com');
-        });
-    </script>
     <title>Registration</title>
 </head>
 <body>
@@ -139,11 +124,11 @@
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-default btn-file form-control">
-                                    Browse… <input class="" type="file" id="imgInp">
+                                    Browse… <input type="file" id="imgInp" name="photo">
                                 </span>
                             </span>
-                            <input type="text" class="form-control" readonly="">
                         </div>
+                        <span class="help-block">You can see the file you upload in the tooltip</span>
                         <span class="help-block"></span>
                         <button type="submit" class="btn btn-lg btn-primary btn-block">Add photo</button>
                     </div>

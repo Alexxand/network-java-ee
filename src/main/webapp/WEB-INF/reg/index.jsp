@@ -93,7 +93,7 @@
         <div class="col-sm-6 col-md-4 col-md-offset-4">
             <h1 class="text-center login-title">Registration Form</h1>
             <div class="account-wall">
-                <form class="form-signin" action="${contextPath}/reg/confirm-email" method="post">
+                <form class="form-signin" action="${contextPath}/reg/add_position" method="post">
                     <input type="text" placeholder="First Name" required="" class="form-control" autofocus="">
                     <input type="text" placeholder="Last Name" required="" class="form-control">
                     <span class="help-block"></span>
