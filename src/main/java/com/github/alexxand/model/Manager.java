@@ -11,6 +11,7 @@ public class Manager {
     private int id;
     private String email;
     private String passwordHash;
+    private String fullName;
     private String company;
     private String position;
     private InputStream photo;

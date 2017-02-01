@@ -1,4 +1,4 @@
-package com.github.alexxand.controllers;
+package com.github.alexxand.controller.servlets.pages;
 
 import com.google.inject.Singleton;
 
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 @Singleton
-public class EditPageController extends HttpServlet {
+public class ContactsPageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Writer out = resp.getWriter();

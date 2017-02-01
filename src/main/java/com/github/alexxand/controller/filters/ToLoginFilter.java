@@ -1,4 +1,4 @@
-package com.github.alexxand.filters;
+package com.github.alexxand.controller.filters;
 
 import com.google.inject.Singleton;
 
@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
 
 @Singleton
 public class ToLoginFilter extends HttpFilter {

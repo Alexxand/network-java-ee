@@ -1,4 +1,4 @@
-package com.github.alexxand.controllers;
+package com.github.alexxand.controller.servlets.pages;
 
 import com.google.inject.Singleton;
 
@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.Writer;
 
 @Singleton
 public class RegPageController extends HttpServlet {
@@ -29,10 +28,10 @@ public class RegPageController extends HttpServlet {
                 req.getServletContext().getRequestDispatcher("/WEB-INF/reg/index.jsp").forward(req, resp);
                 break;
             case "/add-position":
-                req.getServletContext().getRequestDispatcher("/WEB-INF/reg/add-position.jsp").forward(req, resp);
+                req.getServletContext().getRequestDispatcher("/WEB-INF/reg/addPosition.jsp").forward(req, resp);
                 break;
             case "/add-photo":
-                req.getServletContext().getRequestDispatcher("/WEB-INF/reg/add-photo.jsp").forward(req, resp);
+                req.getServletContext().getRequestDispatcher("/WEB-INF/reg/addPhoto.jsp").forward(req, resp);
                 break;
         }
     }

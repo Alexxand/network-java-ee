@@ -1,22 +1,30 @@
 package com.github.alexxand.db;
 
-import com.github.alexxand.model.Manager;
+import com.github.alexxand.model.ManagerContact;
+import com.github.alexxand.model.ManagerContact.Type;
 
 import java.util.List;
 
 public interface ContactsDAO {
 
-    List<Manager> getContacts(int id);
+    /**
+     * Return all contacts of the manager with the given id without requests.
+     * @param id id of the manager
+     * @return all contacts without requests
+     */
+    List<ManagerContact> getContacts(int id);
 
-    List<Manager> getGroup(int id);
+    List<ManagerContact> getGroup(int id);
 
-    List<Manager> getBosses(int id);
+    List<ManagerContact> getBosses(int id);
 
-    List<Manager> getCompanyContacts(int id);
+    List<ManagerContact> getCompanyContacts(int id);
 
-    List<Manager> getRequests(int id);
+    List<ManagerContact> getOutgoingRequests(int id);
 
-    boolean addContact(Manager manager,int promoterId);
+    List<ManagerContact> getIncomingRequests(int id);
+
+    boolean addContact(int promoterId, int receiverId, Type type);
 
     boolean confirm(int promoterId, int receiverId);
 

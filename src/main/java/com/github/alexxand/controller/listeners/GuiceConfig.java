@@ -1,13 +1,12 @@
-package com.github.alexxand.listeners;
+package com.github.alexxand.controller.listeners;
 
+import com.github.alexxand.controller.servlets.pages.*;
 import com.github.alexxand.db.ManagerDAO;
-import com.github.alexxand.db.postgres.PgManagerDAOImpl;
+import com.github.alexxand.db.postgresql.PgManagerDAOImpl;
 import com.github.alexxand.db.providers.PgDataSourceProvider;
-import com.github.alexxand.exceptions.ResourceNotLoadedException;
-import com.github.alexxand.filters.CharsetFilter;
-import com.github.alexxand.filters.LocaleFilter;
-import com.github.alexxand.filters.ToLoginFilter;
-import com.github.alexxand.controllers.*;
+import com.github.alexxand.controller.filters.CharsetFilter;
+import com.github.alexxand.controller.filters.LocaleFilter;
+import com.github.alexxand.controller.filters.ToLoginFilter;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -18,27 +17,14 @@ import com.google.inject.servlet.ServletModule;
 
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
+
+import static com.github.alexxand.utils.Utils.getProp;
 
 @WebListener
 public class GuiceConfig extends GuiceServletContextListener{
 
     private static class DbModule extends AbstractModule {
-
-        //TODO it's better to put it in the separate class
-        private static Properties getProp(String fileName){
-            final Properties prop = new Properties();
-            try(InputStream stream = DbModule.class.getClassLoader().getResourceAsStream(fileName)) {
-                if (stream == null)
-                    throw new ResourceNotLoadedException("Resource " + fileName + " wasn't found");
-                prop.load(stream);
-            } catch (IOException e){
-                throw new ResourceNotLoadedException("Resource couldn't be loaded",e);
-            }
-            return prop;
-        }
 
         @Override
         protected void configure() {
@@ -62,7 +48,6 @@ public class GuiceConfig extends GuiceServletContextListener{
             serve("/reg/add-photo").with(RegPageController.class);
             serve("/edit").with(EditPageController.class);
             serve("/contacts").with(ContactsPageController.class);
-            serve("/messages").with(MessagesPageController.class);
             serve("/mailing").with(MailingPageController.class);
             serve("/events").with(EventsPageController.class);
             //serve("/*").with(ProfilePagesController.class);

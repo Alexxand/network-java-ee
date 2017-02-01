@@ -105,7 +105,7 @@
     </div>
 </div>
 
-<%@include file="../components/select-locale-bar.jsp" %>
+<%@include file="../components/selectLocaleBar.jsp" %>
 
 </body>
 </html>

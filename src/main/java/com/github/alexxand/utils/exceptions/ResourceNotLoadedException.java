@@ -1,4 +1,4 @@
-package com.github.alexxand.exceptions;
+package com.github.alexxand.utils.exceptions;
 
 public class ResourceNotLoadedException extends RuntimeException {
 

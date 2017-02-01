@@ -1,4 +1,4 @@
-package com.github.alexxand.filters;
+package com.github.alexxand.controller.filters;
 
 
 import com.google.inject.Singleton;

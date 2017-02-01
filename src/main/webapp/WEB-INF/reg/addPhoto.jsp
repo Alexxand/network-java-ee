@@ -84,6 +84,32 @@
             margin-top: 10px;
         }
     </style>
+    <style type="text/css">
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+            box-sizing: border-box;
+        }
+
+        #img-upload{
+            width: 100%;
+        }
+    </style>
     <title>Registration</title>
 </head>
 <body>
@@ -91,20 +117,29 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title">Registration Form</h1>
+            <h1 class="text-center login-title">Add photo</h1>
             <div class="account-wall">
                 <form class="form-signin" action="${contextPath}/reg/add-photo" method="post">
-                    <input type="text" placeholder="Your organization" required="" class="form-control" autofocus="">
-                    <input type="text" placeholder="Your position" required="" class="form-control">
-                    <button type="submit" class="btn btn-lg btn-primary btn-block">Continue</button>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <span class="btn btn-default btn-file form-control">
+                                    Browse… <input type="file" id="imgInp" name="photo">
+                                </span>
+                            </span>
+                        </div>
+                        <span class="help-block">You can see the file you upload in the tooltip</span>
+                        <span class="help-block"></span>
+                        <button type="submit" class="btn btn-lg btn-primary btn-block">Add photo</button>
+                    </div>
                 </form>
             </div>
+            <a href="${contextPath}/login" class="text-center new-account">Skip</a>
         </div>
     </div>
 </div>
 
-<%@include file="../components/select-locale-bar.jsp" %>
+<%@include file="../components/selectLocaleBar.jsp" %>
 
 </body>
 </html>
-

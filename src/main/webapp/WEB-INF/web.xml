@@ -16,7 +16,7 @@
     
     <!--<servlet>
         <servlet-name>HttpErrorHandler</servlet-name>
-        <servlet-class>com.github.alexxand.errorHandlers.HttpErrorHandler</servlet-class>
+        <servlet-class>com.github.alexxand.servletsrorsrorHandler</servlet-class>
     </servlet>
 
     <servlet-mapping>

@@ -1,4 +1,4 @@
-package com.github.alexxand.listeners;
+package com.github.alexxand.controller.listeners;
 
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;

@@ -1,4 +1,4 @@
-package com.github.alexxand.controllers;
+package com.github.alexxand.controller.servlets.pages;
 
 import com.google.inject.Singleton;
 
