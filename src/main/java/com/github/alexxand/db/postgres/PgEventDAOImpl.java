@@ -1,4 +1,4 @@
-package com.github.alexxand.db.postgresql;
+package com.github.alexxand.db.postgres;
 
 import com.github.alexxand.db.EventDAO;
 import com.github.alexxand.model.Event;
@@ -10,9 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.alexxand.db.postgresql.Utils.getEvent;
-import static com.github.alexxand.db.postgresql.Utils.prepareLongInsertQuery;
-import static com.github.alexxand.db.postgresql.Utils.update;
+import static com.github.alexxand.db.postgres.Utils.getEvent;
+import static com.github.alexxand.db.postgres.Utils.prepareLongInsertQuery;
 
 public class PgEventDAOImpl implements EventDAO {
     private DataSource dataSource;

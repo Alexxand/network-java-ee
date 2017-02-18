@@ -1,10 +1,10 @@
 CREATE TABLE managers(
 managerId SERIAL PRIMARY KEY,
-email VARCHAR(20) UNIQUE,
-passwordHash VARCHAR(20),
-fullName VARCHAR(20),
-company VARCHAR(20),
-position VARCHAR(20),
+email VARCHAR(40) UNIQUE,
+passwordHash VARCHAR(120),
+fullName VARCHAR(81),
+company VARCHAR(40),
+position VARCHAR(40),
 photo BYTEA);
 
 DROP TYPE IF EXISTS BOSS;

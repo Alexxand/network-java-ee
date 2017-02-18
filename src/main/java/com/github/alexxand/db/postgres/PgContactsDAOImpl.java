@@ -1,4 +1,4 @@
-package com.github.alexxand.db.postgresql;
+package com.github.alexxand.db.postgres;
 
 import com.github.alexxand.db.ContactsDAO;
 import com.github.alexxand.model.ManagerContact;
@@ -10,8 +10,8 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-import static com.github.alexxand.db.postgresql.Utils.getManagerContacts;
-import static com.github.alexxand.db.postgresql.Utils.update;
+import static com.github.alexxand.db.postgres.Utils.getManagerContacts;
+import static com.github.alexxand.db.postgres.Utils.update;
 
 public class PgContactsDAOImpl implements ContactsDAO{
     private DataSource dataSource;
@@ -37,7 +37,7 @@ public class PgContactsDAOImpl implements ContactsDAO{
     }
 
     @Override
-    public List<ManagerContact> getContacts(int id) throws DAOException {
+    public List<ManagerContact> getContacts(int managerId) throws DAOException {
         String query = "SELECT " +
                 "managerId, email, passwordHash, fullName, company, position, photo, " +
                 "promoterId, receiverId, boss" +
@@ -46,11 +46,11 @@ public class PgContactsDAOImpl implements ContactsDAO{
                 "OR receiverId=? AND promoterId=managerId) " +
                 "AND pending=false";
 
-        return getContactsWithQuery(query,id);
+        return getContactsWithQuery(query,managerId);
     }
 
     @Override
-    public List<ManagerContact> getGroup(int id) {
+    public List<ManagerContact> getGroup(int managerId) {
         String query = "SELECT " +
                 "managerId, email, passwordHash, fullName, company, position, photo " +
                 "promoterId, receiverId, boss" +
@@ -59,12 +59,12 @@ public class PgContactsDAOImpl implements ContactsDAO{
                 "OR receiverId=? AND boss='receiver' AND promoterId=managerId) " +
                 "AND pending=false";
 
-        return getContactsWithQuery(query,id);
+        return getContactsWithQuery(query,managerId);
     }
 
 
     @Override
-    public List<ManagerContact> getBosses(int id) {
+    public List<ManagerContact> getBosses(int managerId) {
         String query = "SELECT " +
                 "managerId, email, passwordHash, fullName, company, position, photo " +
                 "promoterId, receiverId, boss" +
@@ -73,11 +73,11 @@ public class PgContactsDAOImpl implements ContactsDAO{
                 "OR receiverId=? AND boss='promoter' AND promoterId=managerId) " +
                 "AND pending=false";
 
-        return getContactsWithQuery(query,id);
+        return getContactsWithQuery(query,managerId);
     }
 
     @Override
-    public List<ManagerContact> getCompanyContacts(int id) {
+    public List<ManagerContact> getCompanyContacts(int managerId) {
         String query = "SELECT " +
                 "managerId, email, passwordHash, fullName, company, position, photo " +
                 "promoterId, receiverId, boss" +
@@ -87,11 +87,11 @@ public class PgContactsDAOImpl implements ContactsDAO{
                 "AND company IN (SELECT company FROM managers WHERE managerId=?)" +
                 "AND pending=false";
 
-        return getContactsWithQuery(query,id);
+        return getContactsWithQuery(query,managerId);
     }
 
     @Override
-    public List<ManagerContact> getOutgoingRequests(int id) {
+    public List<ManagerContact> getOutgoingRequests(int managerId) {
         String query = "SELECT " +
                 "managerId, email, passwordHash, fullName, company, position, photo " +
                 "promoterId, receiverId, boss" +
@@ -99,11 +99,11 @@ public class PgContactsDAOImpl implements ContactsDAO{
                 "WHERE romoterId=? AND receiverId=managerId " +
                 "AND pending=true";
 
-        return getContactsWithQuery(query,id);
+        return getContactsWithQuery(query,managerId);
     }
 
     @Override
-    public List<ManagerContact> getIncomingRequests(int id) {
+    public List<ManagerContact> getIncomingRequests(int managerId) {
         String query = "SELECT " +
                 "managerId, email, passwordHash, fullName, company, position, photo " +
                 "promoterId, receiverId, boss" +
@@ -111,7 +111,7 @@ public class PgContactsDAOImpl implements ContactsDAO{
                 "WHERE OR receiverId=? AND promoterId=managerId) " +
                 "AND pending=true";
 
-        return getContactsWithQuery(query,id);
+        return getContactsWithQuery(query,managerId);
     }
 
     @Override

@@ -10,11 +10,10 @@ import java.io.IOException;
 import java.io.Writer;
 
 @Singleton
-public class ProfilePagesController extends HttpServlet {
+public class ProfilePageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Writer out = resp.getWriter();
         out.write("profile");
-        resp.sendError(404);
     }
 }

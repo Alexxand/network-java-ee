@@ -1,5 +1,7 @@
 package com.github.alexxand.db;
 
+import com.github.alexxand.model.ManagerInf;
+import com.github.alexxand.model.Photo;
 import com.github.alexxand.utils.exceptions.DAOException;
 import com.github.alexxand.model.Manager;
 
@@ -7,9 +9,9 @@ import java.io.InputStream;
 
 public interface ManagerDAO {
     /**
-     * Check if manager with such email doesn't yet exist.
+     * Check if manager with such email exists.
      * @param email email to check
-     * @return true if a manager with the email doesn't yet exist and false otherwise
+     * @return true if a manager with the email exists and false otherwise
      * @throws DAOException if an error occurs
      */
     boolean checkEmail(String email) throws DAOException;
@@ -17,11 +19,10 @@ public interface ManagerDAO {
     /**
      * Add the manager if it's possible.
      *
-     * @param manager The manager to be added (field id is just ignored)
-     * @return false if such email already exists in the data source and true in another case
-     * @throws DAOException if another error occurs
+     * @param managerInf The manager information to be added
+     * @throws DAOException if an error occurs
      */
-    boolean add(Manager manager) throws DAOException;
+    void add(ManagerInf managerInf, Photo photo) throws DAOException;
 
     /**
      * Check if such pair (email, passwordHash) actually exists
@@ -31,6 +32,15 @@ public interface ManagerDAO {
      * @throws DAOException if an error occurs
      */
     boolean checkEmailAndPassword(String email, String passwordHash) throws DAOException;
+
+
+    /**
+     * Get a password hash for the given e'mail.
+     * @param email unique e'mail of the manager
+     * @return passwordHash if manager with such e'mail exists or null otherwise
+     * @throws DAOException if an error occurs
+     */
+    public String getPasswordHash(String email) throws DAOException;
 
     /**
      * Get a manager if it's possible

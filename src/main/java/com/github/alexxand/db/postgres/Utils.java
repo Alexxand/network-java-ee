@@ -1,9 +1,8 @@
-package com.github.alexxand.db.postgresql;
+package com.github.alexxand.db.postgres;
 
 import com.github.alexxand.model.Event;
 import com.github.alexxand.model.Manager;
 import com.github.alexxand.model.ManagerContact;
-import com.github.alexxand.model.ManagerContact.Type;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -20,8 +19,8 @@ import static com.github.alexxand.model.ManagerContact.Type.EMPLOYEE;
 import static com.github.alexxand.model.ManagerContact.Type.NONE;
 
 class Utils {
-    private Utils(){
 
+    private Utils(){
     }
 
     static String prepareLongInsertQuery(String firstPart, int nRows, int nArgs){

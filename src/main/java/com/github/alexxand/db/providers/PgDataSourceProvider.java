@@ -17,11 +17,11 @@ public class PgDataSourceProvider implements Provider<DataSource> {
     }
 
     @Inject
-    public PgDataSourceProvider(@Named("postres.user") String user,
-                                @Named("postres.password") String password,
-                                @Named("postres.db.name") String dbName,
-                                @Named("postres.max.connections") int maxConnections,
-                                @Named("postres.init.connections") int initConnections){
+    public PgDataSourceProvider(@Named("postgres.user") String user,
+                                @Named("postgres.password") String password,
+                                @Named("postgres.db.name") String dbName,
+                                @Named("postgres.max.connections") int maxConnections,
+                                @Named("postgres.init.connections") int initConnections){
         ds = new PGPoolingDataSource();
         ds.setUser(user);
         ds.setPassword(password);

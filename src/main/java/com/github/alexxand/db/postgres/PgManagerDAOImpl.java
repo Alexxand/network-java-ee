@@ -1,9 +1,10 @@
-package com.github.alexxand.db.postgresql;
+package com.github.alexxand.db.postgres;
 
 import com.github.alexxand.db.ManagerDAO;
+import com.github.alexxand.model.ManagerInf;
+import com.github.alexxand.model.Photo;
 import com.github.alexxand.utils.exceptions.DAOException;
 import com.github.alexxand.model.Manager;
-import com.github.alexxand.utils.InputStreamWrapper;
 import com.google.inject.Inject;
 
 import javax.sql.DataSource;
@@ -13,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.github.alexxand.db.postgresql.Utils.getManager;
+import static com.github.alexxand.db.postgres.Utils.getManager;
 
 public class PgManagerDAOImpl implements ManagerDAO {
     private DataSource dataSource;
@@ -30,7 +31,7 @@ public class PgManagerDAOImpl implements ManagerDAO {
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, email);
             try(ResultSet resultSet = statement.executeQuery()) {
-                return !resultSet.next();
+                return resultSet.next();
             }
         } catch (SQLException e) {
             throw new DAOException(e);
@@ -38,27 +39,21 @@ public class PgManagerDAOImpl implements ManagerDAO {
     }
 
     @Override
-    public boolean add(Manager manager) throws DAOException{
+    public void add(ManagerInf managerInf, Photo photo) throws DAOException{
         String query = "INSERT INTO " +
-                "managers(managerId, email, passwordHash, fullName, company, position, photo) " +
-                "VALUES(?,?,?,?,?,?,?)";
+                "managers(email, passwordHash, fullName, company, position, photo) " +
+                "VALUES(?,?,?,?,?,?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
-            statement.setInt(1, manager.getId());
-            statement.setString(2, manager.getEmail());
-            statement.setString(3, manager.getPasswordHash());
-            statement.setString(4, manager.getFullName());
-            statement.setString(5, manager.getCompany());
-            statement.setString(6, manager.getPosition());
-
-            InputStream photoStream = manager.getPhoto();
-            if (!(photoStream instanceof InputStreamWrapper))
-                throw new DAOException("The field photo in a manager must be instance of InputStreamWrapper");
-            InputStreamWrapper photoStreamWrapper = (InputStreamWrapper) photoStream;
-            statement.setBinaryStream(7, manager.getPhoto(), photoStreamWrapper.available());
-            return statement.executeUpdate() != 0;
+            statement.setString(1, managerInf.getEmail());
+            statement.setString(2, managerInf.getPasswordHash());
+            statement.setString(3, managerInf.getFullName());
+            statement.setString(4, managerInf.getCompanyInf().getCompany());
+            statement.setString(5, managerInf.getCompanyInf().getPosition());
+            statement.setBinaryStream(6, photo.getInputStream(), photo.getSize());
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException(e);
         }
@@ -73,6 +68,24 @@ public class PgManagerDAOImpl implements ManagerDAO {
             statement.setString(2, passwordHash);
             try(ResultSet resultSet = statement.executeQuery()) {
                 return resultSet.next();
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public String getPasswordHash(String email) {
+        String query = "SELECT passwordHash FROM managers WHERE email=?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+
+            try(ResultSet resultSet = statement.executeQuery()) {
+                if (!resultSet.next())
+                    return null;
+
+                return resultSet.getString("passwordHash");
             }
         } catch (SQLException e) {
             throw new DAOException(e);
