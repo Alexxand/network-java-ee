@@ -16,8 +16,9 @@ public class ToLoginFilter extends HttpFilter {
         boolean isNotLogin = !path.equals("/login");
         boolean isNotReg = !path.startsWith("/reg");
         boolean isNotWebjars = !path.startsWith("/webjars");
-        return isNotLogin && isNotReg && isNotWebjars;
-    }
+        boolean isNotCSS = !path.startsWith("/css");
+        return isNotLogin && isNotReg && isNotWebjars && isNotCSS;
+     }
 
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {

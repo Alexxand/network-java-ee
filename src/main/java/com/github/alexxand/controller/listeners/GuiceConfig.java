@@ -44,7 +44,7 @@ public class GuiceConfig extends GuiceServletContextListener{
         @Override
         protected void configure() {
             Properties dbConfig = getProp("security/cfg/scrypt.properties");
-            Names.bindProperties(binder(),dbConfig);
+            Names.bindProperties(binder(), dbConfig);
             bind(SecurityService.class).to(SCryptSecurityService.class).in(Singleton.class);
             bind(ManagerService.class).to(BasicManagerService.class).in(Singleton.class);
             bind(LoginService.class).to(BasicLoginService.class).in(Singleton.class);

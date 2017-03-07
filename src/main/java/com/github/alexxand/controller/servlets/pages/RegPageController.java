@@ -146,65 +146,87 @@ public class RegPageController extends HttpServlet {
                 resp.sendRedirect(rootLocation + PHOTO_URI);
                 break;
             case PHOTO_URI:
+                Photo photo = null;
 
-                if (!ServletFileUpload.isMultipartContent(req)) {
-                    //log warn
-                    //alert
-                    req.getServletContext().getRequestDispatcher("/WEB-INF" + PHOTO_VIEW).forward(req, resp);
-                    break;
-                }
-
-                DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-                ServletFileUpload upload = new ServletFileUpload(diskFileItemFactory);
-
-                try {
-                    final InputStream photoInputStream;
-                    final long photoSize;
-                    final Photo photo;
-                    final List<FileItem> items = upload.parseRequest(req);
-                    final FileItem item;
-
-                    if (items.size() == 0 || items.size() > 1){
-                        //log warn
-                        //alert
-                        //forward
-                        break;
-                    }
-
-                    item = items.get(0);
-                    if (!item.getFieldName().equals("photo")) {
-                        //log warn
-                        //alert
-                        //forward
-                        break;
-                    }
-
-                    photoInputStream = item.getInputStream();
-                    photoSize = item.getSize();
-                    if (!(Integer.MIN_VALUE <= photoSize && photoSize <= Integer.MAX_VALUE)){
-                        //alert
-                        //forward
-                        break;
-                    }
-
-
+                if (!ServletFileUpload.isMultipartContent(req) && req.getParameter("skip-photo") != null) {
                     photo = Photo.builder().
-                            inputStream(photoInputStream).
-                            size((int)photoSize).
+                            inputStream(null).
+                            size(0).
                             build();
-
-                    managerInf = (ManagerInf) req.getSession().getAttribute(MANAGER_INF_ATTR);
-
-                    managerService.add(managerInf, photo);
-
-                    resp.sendRedirect(req.getContextPath() + "/profile");
-                } catch (FileUploadException e) {
+                } else if (!ServletFileUpload.isMultipartContent(req)) {
                     //log warn
-                    //alert
+                    req.getServletContext().getRequestDispatcher("/WEB-INF" + PHOTO_VIEW).forward(req, resp);
+                } else {
+
+                    DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
+                    ServletFileUpload upload = new ServletFileUpload(diskFileItemFactory);
+
+                    try {
+                        final InputStream photoInputStream;
+                        final long photoSize;
+                        final List<FileItem> items = upload.parseRequest(req);
+                        final FileItem item;
+                        validation = new FormValidation();
+
+                        if (items.size() == 0 || items.size() > 1) {
+                            //log warn
+                            req.getServletContext().getRequestDispatcher("/WEB-INF" + PHOTO_VIEW).forward(req, resp);
+                            break;
+                        }
+
+                        item = items.get(0);
+                        if (!item.getFieldName().equals("photo")) {
+                            //log warn
+                            req.getServletContext().getRequestDispatcher("/WEB-INF" + PHOTO_VIEW).forward(req, resp);
+                            break;
+                        }
+
+                        photoInputStream = item.getInputStream();
+                        System.out.println();
+                        photoSize = item.getSize();
+                        if (!(Integer.MIN_VALUE <= photoSize && photoSize <= Integer.MAX_VALUE)) {
+                            validation.getErrors().put("INCORRECT_SIZE", true);
+                            req.setAttribute("validation", validation);
+                            req.getServletContext().getRequestDispatcher("/WEB-INF" + PHOTO_VIEW).forward(req, resp);
+                            break;
+                        }
+
+                        String contentType = item.getContentType();
+
+
+                        if (contentType.equals("application/octet-stream")) {
+                            validation.getErrors().put("FILE_NOT_FOUND", true);
+                            req.setAttribute("validation", validation);
+                            req.getServletContext().getRequestDispatcher("/WEB-INF" + PHOTO_VIEW).forward(req, resp);
+                            break;
+                        }
+
+                        boolean isCorrectType = contentType.equals("image/jpeg") ||
+                                contentType.equals("image/pjpeg") ||
+                                contentType.equals("image/png");
+
+                        if (!isCorrectType) {
+                            validation.getErrors().put("INCORRECT_TYPE", true);
+                            req.setAttribute("validation", validation);
+                            req.getServletContext().getRequestDispatcher("/WEB-INF" + PHOTO_VIEW).forward(req, resp);
+                            break;
+                        }
+
+                        photo = Photo.builder().
+                                inputStream(photoInputStream).
+                                size((int) photoSize).
+                                build();
+
+                    } catch (FileUploadException e) {
+                        //log warn
+                    }
                 }
 
+                managerInf = (ManagerInf) req.getSession().getAttribute(MANAGER_INF_ATTR);
+                managerService.add(managerInf, photo);
+                req.getSession().setAttribute("logIn",true);
+                resp.sendRedirect(req.getContextPath() + "/profile");
                 break;
-
         }
     }
 }
